@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, td{
+            border: 1px solid black;
+        }
+    </style>
+
+    <script>
+        const verificaPonto = function(captura){
+            let ponto
+
+            (captura<=300) ? ponto = 1 : ponto = -1
+
+            return ponto
+        }
+    </script>
+</head>
+<body>
+
+    <button id="btnIniciar">Iniciar Jogo</button>
+    <input type="text" id="caixa">
+    <button id="btnCaptura">Captura Valor</button>
+    <br><br>
+    <h4>
+        Se o valor capturado for &lt= 300 você ganha 1 ponto, 
+        se for &gt300 você perde 1 ponto
+    </h4>
+    <table>
+        <tr>
+            <td>clique</td>
+            <td>valor capturado</td>
+            <td>pontuação</td>
+        </tr>
+    </table>
+    <div>Pontuação: <span id="caixaPontos"></span> </div>
+
+
+    <script>
+        const btnIniciar = document.querySelector("#btnIniciar")
+        const btnCaptura = document.querySelector("#btnCaptura")
+        const caixa = document.querySelector("#caixa")
+        const tabela = document.querySelector("table")
+        const caixaPontos = document.querySelector("#caixaPontos")
+        let clique = 0;
+        let pontuacaoArmazenada = 0;
+
+        btnIniciar.addEventListener("click",function(){
+            setInterval(function(){
+                let geraValor = 1000*Math.random();
+                let arredValor = Math.round(geraValor);
+                caixa.value = arredValor;
+            },200) 
+        })
+
+
+        btnCaptura.addEventListener("click",function(){
+            clique++
+
+            let novoPonto = verificaPonto(caixa.value)
+            
+            txtClique = "<tr><td>"+clique+"</td>";
+            txtValor = "<td>"+caixa.value+"</td>"
+            txtPonto = "<td>"+novoPonto+"</td></tr>"
+
+            tabela.innerHTML += txtClique +  txtValor + txtPonto;
+            
+            pontuacaoArmazenada = parseInt(pontuacaoArmazenada) + parseInt(novoPonto)
+            caixaPontos.innerHTML = pontuacaoArmazenada
+
+        })
+        
+        
+
+
+    </script>
+</body>
+</html>

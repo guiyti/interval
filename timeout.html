@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        let codTime
+
+        function temporizador(){
+            alert("ALERTA EXECUTADO APÓS 4s")
+        }
+
+        function eventoTimeout(){
+            codTime = setTimeout( temporizador , 4000)
+            console.log("temporizador iniciado")
+        }
+
+        function eventoClearTimeout(){
+            clearTimeout(codTime)
+            console.log("temporizador interrompido")
+        }
+
+    </script>
+
+</head>
+<body>
+    <button id="btnTimeout">setTimeout</button>
+    <button id="btnClearTimeout">clearTimeout</button>
+    <script>
+
+        const btnTimeout = document.getElementById("btnTimeout")
+        const btnClearTimeout = document.getElementById("btnClearTimeout")
+
+        btnTimeout.addEventListener("click", eventoTimeout)
+        btnClearTimeout.addEventListener("click", eventoClearTimeout)
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        let codInter
+
+
+        const verificaDezena = (valor) => {
+                if(valor<=9){
+                    valor = "0" + valor
+                }
+                return valor
+            }
+
+
+        const eventoInterval = () => codInter = setInterval( repeticao, 1000)
+
+
+        const repeticao = function () {
+
+                let novaData = new Date()
+                let h = novaData.getHours();
+                h = verificaDezena(h);
+                let m = novaData.getMinutes();
+                m = verificaDezena(m);
+                let s = novaData.getSeconds();
+                s = verificaDezena(s);
+
+                let horario = h+":"+m+":"+s
+
+                caixa.value = horario;
+
+            }
+
+        const eventoClearInterval = function () {
+            clearInterval(codInter);
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <button id="btnInterval">Iniciar Relógio</button>
+    <input type="text" id="caixa">
+    <button id="btnClearInterval">Parar Relógio</button>
+
+    <script>
+        const btnInterval = document.getElementById("btnInterval")
+        const btnClearInterval = document.getElementById("btnClearInterval")
+        const caixa = document.getElementById("caixa")
+
+        btnInterval.addEventListener("click", eventoInterval)
+        btnClearInterval.addEventListener("click", eventoClearInterval)
+
+    </script>
+</body>
+
+</html>
