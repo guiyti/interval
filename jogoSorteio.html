@@ -45,7 +45,7 @@
                     txt = "Você ganhou $10"
                     break;
                 default:
-                    premio = 23;
+                    premio = 0;
                     txt = "Você não ganhou nada"
                     break;
             }
@@ -94,7 +94,7 @@
             if (roletaAtiva == false) { //se a roleta estiver parara, é executado:
                 // inicia roleta
                 interId = setInterval(function () {
-                    (valor < 15) ? valor++ : valor = 0
+                    (valor < 10) ? valor++ : valor = 0
                     entrada.value = valor;
                 }, 20)
 
