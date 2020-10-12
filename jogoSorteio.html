@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 50%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        input {
+            font-size: 40pt;
+            width: 50%;
+            text-align: center;
+        }
+
+        button {
+            font-size: 20pt;
+            width: 50%;
+        }
+        #blResultado{
+            font-size: 16pt;
+        }
+    </style>
+
+    <script>
+        const verificaPonto = function(posicao){
+            let txt
+            let premio
+            switch (posicao) {
+                case "1":
+                    premio = 500;
+                    txt = "Você ganhou $500";
+                    break;
+                case "4":
+                    premio = 1200;
+                    txt = "Você ganhou $1200"
+                    break;
+                case "9":
+                    premio = 10;
+                    txt = "Você ganhou $10"
+                    break;
+                default:
+                    premio = 23;
+                    txt = "Você não ganhou nada"
+                    break;
+            }
+            blResultado.innerHTML = txt;
+            return premio
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <div>
+            <h1>Gire a Roleta</h1>
+            <input type="text" id="entrada">
+        </div>
+        <br><br>
+        <div>
+            <div id="blResultado"></div>
+            <button id="botao">Girar</button>
+        </div>
+    </div>
+
+    <script>
+        const entrada = document.getElementById("entrada");
+        const botao = document.getElementById("botao");
+        const blResultado = document.getElementById("blResultado");
+        
+        
+
+        let valor = 0;
+        let roletaAtiva = false
+        let premioNovo;
+        let premioAntigo = 0;
+        let tentativas = 0;
+        botao.addEventListener("click", function () {
+
+            if (localStorage.getItem("nome") == null){
+                let nome = prompt("Digite seu nome")
+                localStorage.setItem("nome",nome)
+                localStorage.setItem("pontuacao",0)
+                localStorage.setItem("tentativas",0)
+            }
+            
+
+            if (roletaAtiva == false) { //se a roleta estiver parara, é executado:
+                // inicia roleta
+                interId = setInterval(function () {
+                    (valor < 15) ? valor++ : valor = 0
+                    entrada.value = valor;
+                }, 20)
+
+                //atualiza parametros
+                botao.innerHTML = "Parar"
+                roletaAtiva = true;
+            }
+            else {//se a roleta estiver rodando, é executado:
+                // interrompe roleta
+                clearInterval(interId)
+
+                //atualiza parametros
+                botao.style.display = "none"
+                blResultado.style.display = "inline"
+                botao.innerHTML = "Girar"
+                roletaAtiva = false;
+
+                //verifica pontuação
+                premioNovo = verificaPonto(entrada.value)
+                premioAntigo = parseFloat(premioAntigo) + parseFloat(premioNovo)
+
+                localStorage.setItem("pontuacao",premioAntigo);
+                tentativas++ ;
+                localStorage.setItem("tentativas",tentativas);
+
+                setTimeout(function(){
+                    botao.style.display = "inline"
+                    blResultado.style.display = "none"
+                },2000)
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>
